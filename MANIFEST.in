@@ -1,0 +1,8 @@
+include COPYING
+include COPYING.LESSER
+include MANIFEST.in
+include README.rst
+include requirements.txt
+include setup.py
+
+recursive-include fermilibpluginpsi4 *.py _psi4_template*
