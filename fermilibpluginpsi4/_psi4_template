@@ -6,6 +6,7 @@ from fermilib.config import *
 from fermilib.ops._interaction_tensor import (one_body_basis_change,
                                               two_body_basis_change)
 from fermilib.utils import MolecularData
+from numpy import array
 
 sys.path.append('&THIS_DIRECTORY')
 from _psi4_conversion_functions import *
@@ -22,7 +23,8 @@ molecule = MolecularData(&geometry,
                          '&basis',
                          &multiplicity,
                          &charge,
-                         _description)
+                         _description,
+                          filename='&mol_filename')
 
 # Set molecular geometry and symmetry.
 molecule mol {

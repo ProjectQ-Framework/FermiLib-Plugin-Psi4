@@ -103,6 +103,8 @@ def generate_psi4_input(molecule,
                      for line in input_content]
     input_content = [re.sub('&description', str(molecule.description), line)
                      for line in input_content]
+    input_content = [re.sub('&mol_filename', str(molecule.filename), line)
+                     for line in input_content]
     input_content = [re.sub('&geo_string', geo_string, line)
                      for line in input_content]
 
