@@ -51,7 +51,7 @@ set globals {
     opdm true
     tpdm true
     soscf false
-    scf_type df
+    scf_type pk
     maxiter 1e6
     num_amps_print 1e6
     r_convergence 1e-6
@@ -95,8 +95,7 @@ if &run_scf:
         two_body_integrals = numpy.einsum('psqr', two_body_integrals)
         two_body_integrals = two_body_basis_change(
             two_body_integrals, molecule.canonical_orbitals)
-        integrals_name = molecule.filename + '_eri'
-        numpy.save(integrals_name, two_body_integrals)
+        molecule.two_body_integrals = two_body_integrals
         molecule.save()
 
 
@@ -159,8 +158,7 @@ if &run_cisd:
 
         # Store 1-RDM in molecule file, 2-RDM separately in other file.
         molecule.cisd_one_rdm = cisd_one_rdm
-        cisd_rdm_name = molecule.filename + '_cisd_rdm'
-        numpy.save(cisd_rdm_name, cisd_two_rdm)
+        molecule.cisd_two_rdm = cisd_two_rdm
         molecule.save()
 
 
@@ -205,8 +203,7 @@ if &run_fci:
 
         # Store 1-RDM in molecule file, 2-RDM separately in other file.
         molecule.fci_one_rdm = fci_one_rdm
-        fci_rdm_name = molecule.filename + '_fci_rdm'
-        numpy.save(fci_rdm_name, fci_two_rdm)
+        molecule.fci_two_rdm = fci_two_rdm
         molecule.save()
 
 
