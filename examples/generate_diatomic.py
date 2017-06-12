@@ -44,6 +44,7 @@ if __name__ == '__main__':
     verbose = 1
     tolerate_error = 1
 
+    # Run Diatomic Curve
     for spacing in spacings:
         description = "{}".format(spacing)
         geometry = [[element_names[0], [0, 0, 0]],
@@ -64,3 +65,22 @@ if __name__ == '__main__':
                             tolerate_error=tolerate_error)
         molecule.save()
 
+    # Run Li H single point
+    description = "1.45"
+    geometry = [['Li', [0, 0, 0]],
+                ['H', [0, 0, 1.45]]]
+    molecule = MolecularData(geometry,
+                             basis,
+                             multiplicity,
+                             charge,
+                             description)
+
+    molecule = run_psi4(molecule,
+                        run_scf=run_scf,
+                        run_mp2=run_mp2,
+                        run_cisd=run_cisd,
+                        run_ccsd=run_ccsd,
+                        run_fci=run_fci,
+                        verbose=verbose,
+                        tolerate_error=tolerate_error)
+    molecule.save()
