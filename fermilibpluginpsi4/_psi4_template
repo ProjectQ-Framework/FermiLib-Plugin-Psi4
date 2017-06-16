@@ -47,7 +47,7 @@ set globals {
     basis &basis
     freeze_core false
     fail_on_maxiter true
-    df_scf_guess true
+    df_scf_guess false
     opdm true
     tpdm true
     soscf false
