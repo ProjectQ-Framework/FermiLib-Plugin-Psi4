@@ -57,7 +57,8 @@ def generate_psi4_input(molecule,
                         run_fci,
                         verbose,
                         tolerate_error,
-                        memory):
+                        memory,
+                        template_file):
     """This function creates and saves a psi4 input file.
 
     Args:
@@ -70,6 +71,7 @@ def generate_psi4_input(molecule,
         verbose: Boolean whether to print calculation results to screen.
         tolerate_error: Whether to fail or merely warn when Psi4 fails.
         memory: Int giving amount of memory to allocate in MB.
+        template_file(str): Specify the filename of a Psi4 template
 
     Returns:
         input_file: A string giving the name of the saved input file.
@@ -81,7 +83,8 @@ def generate_psi4_input(molecule,
     psi4_directory = os.path.dirname(os.path.realpath(__file__))
 
     # Parse input template.
-    template_file = psi4_directory + '/_psi4_template'
+    if template_file is None:
+        template_file = psi4_directory + '/_psi4_template'
     input_template = []
     with open(template_file, 'r') as stream:
         for line in stream:
@@ -102,6 +105,8 @@ def generate_psi4_input(molecule,
     input_content = [re.sub('&multiplicity', str(molecule.multiplicity), line)
                      for line in input_content]
     input_content = [re.sub('&description', str(molecule.description), line)
+                     for line in input_content]
+    input_content = [re.sub('&mol_filename', str(molecule.filename), line)
                      for line in input_content]
     input_content = [re.sub('&geo_string', geo_string, line)
                      for line in input_content]
@@ -158,7 +163,8 @@ def run_psi4(molecule,
              tolerate_error=False,
              delete_input=True,
              delete_output=False,
-             memory=8000):
+             memory=8000,
+             template_file=None):
     """This function runs a Psi4 calculation.
 
     Args:
@@ -173,6 +179,7 @@ def run_psi4(molecule,
         delete_input: Optional boolean to delete psi4 input file.
         delete_output: Optional boolean to delete psi4 output file.
         memory: Optional int giving amount of memory to allocate in MB.
+        template_file(str): Path to Psi4 template file
 
     Returns:
         molecule: The updated MolecularData object.
@@ -189,7 +196,8 @@ def run_psi4(molecule,
                                      run_fci,
                                      verbose,
                                      tolerate_error,
-                                     memory)
+                                     memory,
+                                     template_file)
 
     # Run psi4.
     output_file = molecule.filename + '.out'
