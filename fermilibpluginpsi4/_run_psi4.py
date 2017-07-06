@@ -28,7 +28,7 @@ def create_geometry_string(geometry):
     Args:
         geometry: A list of tuples giving the coordinates of each atom.
             example is [('H', (0, 0, 0)), ('H', (0, 0, 0.7414))]. Distances in
-            atomic units. Use atomic symbols to specify atoms.
+            angstrom. Use atomic symbols to specify atoms.
 
     Returns:
         geo_string: A string giving the geometry for each atom on a line, e.g.:

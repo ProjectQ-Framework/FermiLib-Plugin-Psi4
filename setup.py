@@ -14,10 +14,8 @@ requirements = [r.strip() for r in requirements]
 setup(
     name='fermilibpluginpsi4',
     version=__version__,
-    author='Ryan Babbush, Jarrod McClean, Damian Steiger, Ian Kivlichan, '
-           'Thomas Haener, Vojtech Havlicek, Matthew Neeley, Wei Sun',
-    author_email='ryanbabbush@gmail.com, jarrod.mcc@gmail.com, '
-                 'fermilib@projectq.ch',
+    author='FermiLib plugin Psi4 developers',
+    author_email='fermilib@projectq.ch',
     url='http://www.projectq.ch',
     description='A plugin allowing FermiLib to interface with Psi4.',
     long_description=long_description,
