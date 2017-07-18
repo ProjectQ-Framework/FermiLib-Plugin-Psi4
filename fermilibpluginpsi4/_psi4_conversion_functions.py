@@ -253,4 +253,8 @@ def parse_psi4_ccsd_amplitudes(number_orbitals,
                               alpha_unoccupied(b),
                               alpha_occupied(j)] = value / 2.
 
-    return single_amplitudes, double_amplitudes
+    # Package into InteractionOperator.
+    molecule = InteractionOperator(0.0,
+                                   single_amplitudes,
+                                   double_amplitudes)
+    return molecule
