@@ -225,11 +225,10 @@ if &run_ccsd:
 
         # Merge CC amplitudes into molecule by parsing
         psi_filename = outfile_name()
-        single_amplitudes, double_amplitudes = parse_psi4_ccsd_amplitudes(
+        ccsd_amplitudes = parse_psi4_ccsd_amplitudes(
             2 * molecule.n_orbitals,
             molecule.get_n_alpha_electrons(),
             molecule.get_n_beta_electrons(),
             psi_filename)
-        molecule.ccsd_single_amps = single_amplitudes
-        molecule.ccsd_double_amps = double_amplitudes
+        molecule.ccsd_amplitudes = ccsd_amplitudes
         molecule.save()
