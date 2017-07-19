@@ -232,6 +232,6 @@ if &run_ccsd:
                 molecule.get_n_beta_electrons(),
                 psi_filename))
 
-        molecule.ccsd_single_amps = single_amplitudes
-        molecule.ccsd_double_amps = double_amplitudes
+        molecule.ccsd_single_amps = single_cc_amplitudes
+        molecule.ccsd_double_amps = double_cc_amplitudes
         molecule.save()
