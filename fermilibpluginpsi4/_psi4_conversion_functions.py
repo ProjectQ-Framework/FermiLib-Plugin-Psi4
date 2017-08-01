@@ -209,52 +209,48 @@ def parse_psi4_ccsd_amplitudes(number_orbitals,
     # Store singles
     for entry in T1IA_Amps:
         i, a, value = entry
-        single_amplitudes[alpha_occupied(i),
-                          alpha_unoccupied(a)] = value
+        single_amplitudes[alpha_unoccupied(a),
+                          alpha_occupied(i)] = value
         if (restricted):
-            single_amplitudes[beta_occupied(i),
-                              beta_unoccupied(a)] = value
+            single_amplitudes[beta_unoccupied(a),
+                              beta_occupied(i)] = value
 
     for entry in T1ia_Amps:
         i, a, value = entry
-        single_amplitudes[beta_occupied(i),
-                          beta_unoccupied(a)] = value
+        single_amplitudes[beta_unoccupied(a),
+                          beta_occupied(i)] = value
 
     # Store doubles, include factor of 1/2 for convention
     for entry in T2IJAB_Amps:
         i, j, a, b, value = entry
-        double_amplitudes[alpha_occupied(i),
-                          alpha_unoccupied(a),
-                          alpha_occupied(j),
-                          alpha_unoccupied(b)] = -value / 2.
+        double_amplitudes[alpha_unoccupied(a),
+                          alpha_occupied(i),
+                          alpha_unoccupied(b),
+                          alpha_occupied(j)] = value / 2.
         if (restricted):
-            double_amplitudes[beta_occupied(i),
-                              beta_unoccupied(a),
-                              beta_occupied(j),
-                              beta_unoccupied(b)] = -value / 2.
+            double_amplitudes[beta_unoccupied(a),
+                              beta_occupied(i),
+                              beta_unoccupied(b),
+                              beta_occupied(j)] = value / 2.
 
     for entry in T2ijab_Amps:
         i, j, a, b, value = entry
-        double_amplitudes[beta_occupied(i),
-                          beta_unoccupied(a),
-                          beta_occupied(j),
-                          beta_unoccupied(b)] = -value / 2.
+        double_amplitudes[beta_unoccupied(a),
+                          beta_occupied(i),
+                          beta_unoccupied(b),
+                          beta_occupied(j)] = value / 2.
 
     for entry in T2IjAb_Amps:
         i, j, a, b, value = entry
-        double_amplitudes[alpha_occupied(i),
-                          alpha_unoccupied(a),
-                          beta_occupied(j),
-                          beta_unoccupied(b)] = -value / 2.
+        double_amplitudes[alpha_unoccupied(a),
+                          alpha_occupied(i),
+                          beta_unoccupied(b),
+                          beta_occupied(j)] = value / 2.
 
         if (restricted):
-            double_amplitudes[beta_occupied(i),
-                              beta_unoccupied(a),
-                              alpha_occupied(j),
-                              alpha_unoccupied(b)] = -value / 2.
+            double_amplitudes[beta_unoccupied(a),
+                              beta_occupied(i),
+                              alpha_unoccupied(b),
+                              alpha_occupied(j)] = value / 2.
 
-    # Package into InteractionOperator.
-    molecule = InteractionOperator(0.0,
-                                   single_amplitudes,
-                                   double_amplitudes)
-    return molecule
+    return single_amplitudes, double_amplitudes
